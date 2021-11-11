@@ -19,7 +19,7 @@ public class MemberUI {
 			System.out.println(menu);
 			System.out.print("메뉴 번호 : ");
 			int select = sc.nextInt();
-			if (select == 1) {
+			if(select == 1) {
 				
 			}
 		} while(!isStop);

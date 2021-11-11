@@ -7,7 +7,6 @@ import mms.member.vo.Member;
 public class MemberListService {
 
 	public ArrayList<Member> getMemberList() {
-
 		
 	}
 
