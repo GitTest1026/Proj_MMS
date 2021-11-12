@@ -7,6 +7,7 @@ import mms.member.vo.Member;
 
 public class ConsoleUtil {
 	public Member getNewMember(Scanner sc) {
+		
 		return new Member();
 	}
 

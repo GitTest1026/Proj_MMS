@@ -2,6 +2,8 @@ package mms.member.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import mms.member.db.JdbcUtil;
@@ -23,17 +25,16 @@ public class MemberDAO {
 	public int insertNewMember(Member newMember) {
 		int result = 0;
 
-		String sql = "insert into members values(?, ?, ?, ?, ?, ?)";
+		String sql = "insert into members values(member_id_seq.nextval, ?, ?, ?, ?, ?)";
 
 		try {
 			getInstance();
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, newMember.getId());
-			pstmt.setString(2, newMember.getName());
-			pstmt.setString(3, newMember.getAddr());
-			pstmt.setString(4, newMember.getNation());
-			pstmt.setString(5, newMember.getEmail());
-			pstmt.setInt(6, newMember.getAge());
+			pstmt.setString(1, newMember.getName());
+			pstmt.setString(2, newMember.getAddr());
+			pstmt.setString(3, newMember.getNation());
+			pstmt.setString(4, newMember.getEmail());
+			pstmt.setInt(5, newMember.getAge());
 			// sql 실행
 			result = pstmt.executeUpdate(); // 1 or 0
 		} catch (Exception e) {
@@ -46,16 +47,102 @@ public class MemberDAO {
 	}
 
 	public ArrayList<Member> selectMemberList() {
+		getInstance();
+		ArrayList<Member> list = new ArrayList(); // 객체 저장 가능
+		String sql = null;
+		ResultSet rs = null;
 
-		return null;
+		try {
+			sql = "SELECT * FROM mms_member";
+
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery(); // SELECT
+
+			// rs.next(): 첫번째 레코드로 이동
+			// rs.next(): 두번째 레코드로 이동
+			// rs.next(): 세번째 레코드로 이동
+			while (rs.next() == true) {
+				Member vo = new Member();
+
+				// vo 객체에 값을 저장합니다.
+				// 레코드(rs) ---> 객체로 변환(vo)
+
+				vo.setId(rs.getInt(1));
+				vo.setName(rs.getString("name"));
+				vo.setAddr(rs.getString("addr"));
+				vo.setEmail(rs.getString("email"));
+				vo.setNation(rs.getString("nation"));
+				vo.setAge(rs.getInt("age"));
+				// 컬럼의 값이 저장된 vo 객체를 ArrayList에 저장
+				list.add(vo);
+			}
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		} finally {
+			JdbcUtil.close(con);
+			JdbcUtil.close(pstmt);
+			JdbcUtil.close(rs);
+		}
+		return list;
 	}
 
 	public Member selectOldMember(String name) {
-		return null;
-
+		Member vo = new Member();
+		String sql = "SELECT * from mms_member where name = ? order by id";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, name);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				vo.setId(rs.getInt(1));
+				vo.setName(rs.getString("name"));
+				vo.setAddr(rs.getString("addr"));
+				vo.setEmail(rs.getString("email"));
+				vo.setNation(rs.getString("nation"));
+				vo.setAge(rs.getInt("age"));
+			}
+			
+		} catch (SQLException e) {
+			
+		}
+		
+		return vo;
 	}
 
 	public int updateMember(Member updateMember) {
+		int cnt = 0;
+		getInstance();
+		PreparedStatement pstmt = null;
+		
+		StringBuffer sql = new StringBuffer();
+		sql.append("UPDATE MEMBER ");  //기존에 내용에 추가 가능 (속도 빨라짐)
+		sql.append("SET nation = ?, "); //이렇게 뒤에 한칸씩 뛰어야댐
+		sql.append("addr = ?, ");
+		sql.append("email = ?, ");
+		sql.append("WHERE name = ? ");
+		
+		//System.out.println(sql);
+		
+		try {
+			pstmt = con.prepareStatement(sql.toString());  //얘는 투스트링을 자동실행이 안되서 뒤에 추가.
+			//pstmt = conn.prepareStatement(sql); //String sql 일경우
+			pstmt.setString(1,updateMember.getNation());
+			pstmt.setInt(2, mdto.getBirthyear());
+			pstmt.setString(3,mdto.getUserid());
+			
+			cnt = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			
+			
+		}
+				
+		return cnt;
+
+	}
 		return 0;
 
 	}
