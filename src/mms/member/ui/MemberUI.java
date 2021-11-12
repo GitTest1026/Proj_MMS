@@ -1,7 +1,6 @@
 package mms.member.ui;
 
 import java.util.Scanner;
-
 import mms.member.controller.MemberController;
 
 public class MemberUI {

@@ -136,20 +136,32 @@ public class MemberDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
-			
-			
+			JdbcUtil.close(con);
+			JdbcUtil.close(pstmt);
 		}
 				
 		return cnt;
-
-	}
-		return 0;
-
 	}
 
 	public int deleteMember(String name) {
-		return 0;
-
+		int result = 0;
+		getInstance();
+		PreparedStatement pstmt = null;
+		String sql = "DELETE FROM MMS_MEMBER \r\n" + 
+				"WHERE name = ?";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1,name);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JdbcUtil.close(con);
+			JdbcUtil.close(pstmt);
+		}
+		return result;
 	}
 
 }
