@@ -47,16 +47,22 @@ public class ConsoleUtil {
 	}
 
 	public Member getUpdateMember(Scanner sc, Member mb) {
-		System.out.println("----- 회원 정보 수정 -----");
 		if(mb == null) {
 			System.out.println("회원정보가 없습니다.");
 			return mb;
+		} else {
+			System.out.println("수정할 회원 정보를 입력하세요");
+			System.out.print("이전 국가 : " + mb.getNation() + " ");
+			System.out.print("수정할 국가 : ");
+			mb.setNation(sc.next());
+			System.out.print("이전 이메일 : " + mb.getEmail() + " ");
+			System.out.print("수정할 이메일 : ");
+			mb.setEmail(sc.next());
+			System.out.print("이전 나이 : " + mb.getAge() + " ");
+			System.out.print("수정할 나이 : ");
+			mb.setAge(sc.nextInt());
+			return mb;
 		}
-		
-		System.out.println(mb.toString());
-		
-		return mb;
-
 	}
 
 	public void printModifySuccessMessage(Member updateMember) {

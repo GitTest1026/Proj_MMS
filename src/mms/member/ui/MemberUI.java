@@ -24,8 +24,7 @@ public class MemberUI {
 			int select = sc.nextInt();
 			switch(select) {
 			case 1:
-				MemberAddService add = new MemberAddService();
-				add.addMember(null)
+				memberController.processRequest(null, sc);
 				break;
 			case 2:
 				break;

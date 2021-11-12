@@ -48,7 +48,7 @@ public class MemberDAO {
 
 	public ArrayList<Member> selectMemberList() {
 		getInstance();
-		ArrayList<Member> list = new ArrayList(); // 객체 저장 가능
+		ArrayList<Member> list = new ArrayList<>(); // 객체 저장 가능
 		String sql = null;
 		ResultSet rs = null;
 
@@ -119,6 +119,7 @@ public class MemberDAO {
 		sql.append("SET nation = ?, "); //이렇게 뒤에 한칸씩 뛰어야댐
 		sql.append("addr = ?, ");
 		sql.append("email = ?, ");
+		sql.append("age = ?");
 		sql.append("WHERE name = ? ");
 		
 		//System.out.println(sql);
@@ -127,11 +128,10 @@ public class MemberDAO {
 			pstmt = con.prepareStatement(sql.toString());  //얘는 투스트링을 자동실행이 안되서 뒤에 추가.
 			//pstmt = conn.prepareStatement(sql); //String sql 일경우
 			pstmt.setString(1,updateMember.getNation());
-			pstmt.setInt(2, mdto.getBirthyear());
-			pstmt.setString(3,mdto.getUserid());
-			
+			pstmt.setString(2, updateMember.getAddr());
+			pstmt.setString(3, updateMember.getEmail());
+			pstmt.setInt(4, updateMember.getAge());
 			cnt = pstmt.executeUpdate();
-			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -139,7 +139,6 @@ public class MemberDAO {
 			JdbcUtil.close(con);
 			JdbcUtil.close(pstmt);
 		}
-				
 		return cnt;
 	}
 
