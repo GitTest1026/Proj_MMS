@@ -16,13 +16,14 @@ public class JdbcUtil {
 
 	public static Connection getConnection() {
 		// db 작업에 필요한 connection 객체를 생성해주는 메소드
-		Connection conn = null;
+		Connection con = null;
 		String url = "jdbc:oracle:thin:@localhost:1521:orcl";
 		String id = "javalink";
 		String pw = "javalink";
+		
 		try {
-			conn = DriverManager.getConnection(url, id, pw);
-			return conn;
+			con = DriverManager.getConnection(url, id, pw);
+			return con;
 		} catch (SQLException e) {
 		}
 		return null;
@@ -46,19 +47,19 @@ public class JdbcUtil {
 		}
 	}
 
-	public static void close(Connection conn) {
-		if (conn != null) {
+	public static void close(Connection con) {
+		if (con != null) {
 			try {
-				conn.close();
+				con.close();
 			} catch (SQLException ex) {
 			}
 		}
 	}
 
-	public static void rollback(Connection conn) {
-		if (conn != null) {
+	public static void rollback(Connection con) {
+		if (con != null) {
 			try {
-				conn.rollback();
+				con.rollback();
 			} catch (SQLException ex) {
 			}
 		}

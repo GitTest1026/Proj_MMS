@@ -9,7 +9,9 @@ public class MemberAddAction implements Action {
 	@Override
 	public void execute(Scanner sc) throws Exception {
 		Member m = new Member();
-		m.getId()
+		System.out.println();
+		m.setId(sc.nextInt());
+		m.setName(sc.next());
 	}
 
 }
