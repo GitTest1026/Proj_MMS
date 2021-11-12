@@ -55,7 +55,16 @@ public class JdbcUtil {
 			}
 		}
 	}
-
+	
+	public static void commit(Connection con) {
+		if (con != null) {
+			try {
+				con.commit();
+			} catch (SQLException ex) {
+			}
+		}
+	}
+	
 	public static void rollback(Connection con) {
 		if (con != null) {
 			try {

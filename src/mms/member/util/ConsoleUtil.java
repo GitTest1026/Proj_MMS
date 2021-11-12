@@ -7,23 +7,24 @@ import mms.member.vo.Member;
 
 public class ConsoleUtil {
 	public Member getNewMember(Scanner sc) {
-		Member m = new Member();
 		System.out.println("등록할 회원 정보를 입력하세요");
+		// 사용자에게 입력받은 데이터를 Member객체에 저장
+		Member mb = new Member();		
 		System.out.print("이름 : ");
-		m.setName(sc.next());
+		mb.setName(sc.next());
 		System.out.println();
 		System.out.print("주소 : ");
-		m.setAddr(sc.next());
+		mb.setAddr(sc.next());
 		System.out.println();
 		System.out.print("국가 : ");
-		m.setNation(sc.next());
+		mb.setNation(sc.next());
 		System.out.println();
 		System.out.print("이메일 : ");
-		m.setEmail(sc.next());
+		mb.setEmail(sc.next());
 		System.out.println();
 		System.out.print("나이 : ");
-		m.setAge(sc.nextInt());
-		return new Member();
+		mb.setAge(sc.nextInt());		
+		return mb;
 	}
 
 	public void printAddSuccessMessage(Member newMember) {
@@ -35,6 +36,9 @@ public class ConsoleUtil {
 	}
 
 	public void printMemberList(ArrayList<Member> memberList) {
+		for (Member m : memberList) {
+			m.toString();
+		}
 		// size() : 컬렉션에 저장되어 있는 요소의 개수를 리턴하는 메소드
 	}
 
@@ -42,8 +46,17 @@ public class ConsoleUtil {
 		return null;
 	}
 
-	public Member getUpdateMember(Scanner sc, Member oldMember) {
-		return null;
+	public Member getUpdateMember(Scanner sc, Member mb) {
+		System.out.println("----- 회원 정보 수정 -----");
+		if(mb == null) {
+			System.out.println("회원정보가 없습니다.");
+			return mb;
+		}
+		
+		System.out.println(mb.toString());
+		
+		return mb;
+
 	}
 
 	public void printModifySuccessMessage(Member updateMember) {

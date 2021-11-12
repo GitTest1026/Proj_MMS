@@ -1,7 +1,11 @@
 package mms.member.ui;
 
 import java.util.Scanner;
+
+import mms.member.action.MemberAddAction;
 import mms.member.controller.MemberController;
+import mms.member.svc.MemberAddService;
+import mms.member.util.ConsoleUtil;
 
 public class MemberUI {
 	public static void main(String[] args) {
@@ -18,8 +22,19 @@ public class MemberUI {
 			System.out.println(menu);
 			System.out.print("메뉴 번호 : ");
 			int select = sc.nextInt();
-			if(select == 1) {
-				
+			switch(select) {
+			case 1:
+				MemberAddService add = new MemberAddService();
+				add.addMember(null)
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			case 4:
+				break;
+			case 5:
+				isStop = true;
 			}
 		} while(!isStop);
 	}

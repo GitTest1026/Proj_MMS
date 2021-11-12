@@ -24,7 +24,7 @@ public class MemberDAO {
 
 	public int insertNewMember(Member newMember) {
 		int result = 0;
-
+		
 		String sql = "insert into members values(member_id_seq.nextval, ?, ?, ?, ?, ?)";
 
 		try {
